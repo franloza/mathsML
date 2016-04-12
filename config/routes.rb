@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
- 
- 
-  get 'favoritos' => 'peliculas#favoritos'
-  resources :peliculas
+
+
+  get 'list' => 'operations#list'
+  resources :operations
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'operations#index'
 
   # Example of regular route:
 

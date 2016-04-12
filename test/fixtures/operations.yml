@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstOp: MyString
+  secondOp: 1
+  responseTime: 
+  type: 
+
+two:
+  firstOp: MyString
+  secondOp: 1
+  responseTime: 
+  type: 
