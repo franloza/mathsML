@@ -1,12 +1,16 @@
 <h1>Listing operations</h1>
 
+<%= link_to 'New Operation', new_operation_path %>
+
 <table>
   <thead>
     <tr>
-      <th>Firstop</th>
-      <th>Secondop</th>
-      <th>Responsetime</th>
+      <th>FirstOp</th>
       <th>Type</th>
+      <th>SecondOp</th>
+      <th>InitTime</th>
+      <th>EndTime</th>
+      <th>Responsetime</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,17 +19,14 @@
     <% @operations.each do |operation| %>
       <tr>
         <td><%= operation.firstOp %></td>
-        <td><%= operation.secondOp %></td>
-        <td><%= operation.responseTime %></td>
         <td><%= operation.type %></td>
-        <td><%= link_to 'Show', operation %></td>
-        <td><%= link_to 'Edit', edit_operation_path(operation) %></td>
-        <td><%= link_to 'Destroy', operation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= operation.secondOp %></td>
+        <td><%= operation.initTime %></td>
+        <td><%= operation.endTime %></td>
+        <td><%= operation.responseTime %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Operation', new_operation_path %>

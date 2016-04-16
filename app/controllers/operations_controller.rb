@@ -32,25 +32,25 @@ class OperationsController < ApplicationController
   # POST /operations
   # POST /operations.json
   def answer
-    @operation = Operation.find(params[:id])
-    
-    if ((@operation.type == '+') && (operation_params.firstOp + operation_params.secondOp == params[:result]))
+    @operation = Operation.find(params[:operation]['id'])
+
+    if ((@operation.type == '+') && (@operation.firstOp.to_i  + @operation.secondOp.to_i  == params[:result].to_i ))
         @valid = true
-    elsif ((@operation.type == '-') && (operation_params.firstOp - operation_params.secondOp == params[:result]))
+    elsif ((@operation.type == '-') && (@operation.firstOp.to_i  - @operation.secondOp.to_i  == params[:result].to_i ))
         @valid = true
-    elsif ((@operation.type == '*') && (operation_params.firstOp * operation_params.secondOp == params[:result]))
+    elsif ((@operation.type == '*') && (@operation.firstOp.to_i  * @operation.secondOp.to_i  == params[:result].to_i ))
         @valid = true
-    elsif  (@operation.type == '/') && (operation_params.firstOp / operation_params.secondOp == params[:result]))
+    elsif ((@operation.type == '/') && (@operation.firstOp.to_i  / @operation.secondOp.to_i  == params[:result].to_i ))
         @valid = true
     else
       render :new
     end
 
-    if (valid)
+    if (@valid)
       @operation.endTime = Time.new
+      @operation.responseTime = (@operation.endTime.to_f - @operation.initTime.to_f)
       @operation.save
-      format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
-      format.json { render :show, status: :created, location: @operation }
+      render :answer
     end
   end
 
@@ -63,7 +63,7 @@ class OperationsController < ApplicationController
   # PATCH/PUT /operations/1.json
   def update
     respond_to do |format|
-      if @operation.update(operation_params)
+      if @operation.update(params)
         format.html { redirect_to @operation, notice: 'Operation was successfully updated.' }
         format.json { render :show, status: :ok, location: @operation }
       else
@@ -78,7 +78,7 @@ class OperationsController < ApplicationController
   def destroy
     @operation.destroy
     respond_to do |format|
-      format.html { redirect_to operations_url, notice: 'Operation was successfully destroyed.' }
+      render :list
       format.json { head :no_content }
     end
   end
@@ -87,10 +87,5 @@ class OperationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_operation
       @operation = Operation.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def operation_params
-      params.require(:operation).permit(:firstOp, :secondOp, :responseTime, :type)
     end
 end

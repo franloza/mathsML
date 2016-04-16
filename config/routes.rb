@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
 
   get 'list' => 'operations#list'
+  post 'answer' => 'operations#answer'
   resources :operations
 
   # The priority is based upon order of creation: first created -> highest priority.

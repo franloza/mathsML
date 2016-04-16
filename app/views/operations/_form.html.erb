@@ -1,9 +1,9 @@
-<%= form_tag :action=>:answer do %>
+<%= form_for @operation, url: {action: "answer"}, method: :post do |f| %>
   <div class="field">
-    <%= @operation.firstOp %> <%= @operation.type %> <%= @operation.secondOp%>  = <%= text_field_tag(:result) %>
+    <%= @operation.firstOp %> <%= @operation.type %> <%= @operation.secondOp%>  = <%= text_field_tag 'result' %>
   </div>
+  <%= f.hidden_field :id, :value => @operation.id %>
   <div class="actions">
-      <%= submit_tag "Enviar" %>
+      <%= f.submit "Enviar" %>
   </div>
-
   <% end %>
