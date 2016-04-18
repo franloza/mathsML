@@ -21,30 +21,42 @@ class OperationsController < ApplicationController
   # GET /operations/new
   def new
     @operation = Operation.new
-    @operation.firstOp = 2
-    @operation.secondOp = 3
-  end
-
-  # GET /operations/1/edit
-  def edit
+    r = Random.new
+    @operation.firstOp = r.rand(1...99)
+    @operation.secondOp = r.rand(1...99)
+    @operation.type = ['+','-','*','/'].sample
+    @operation.initTime = Time.new
+    @operation.save
   end
 
   # POST /operations
   # POST /operations.json
-  def create
-    if(operation_params.firstOp + operation_params.secondOp == :result)
-      @operation = Operation.new(operation_params)
+  def answer
+    @operation = Operation.find(params[:id])
+    
+    if ((@operation.type == '+') && (operation_params.firstOp + operation_params.secondOp == params[:result]))
+        @valid = true
+    elsif ((@operation.type == '-') && (operation_params.firstOp - operation_params.secondOp == params[:result]))
+        @valid = true
+    elsif ((@operation.type == '*') && (operation_params.firstOp * operation_params.secondOp == params[:result]))
+        @valid = true
+    elsif  (@operation.type == '/') && (operation_params.firstOp / operation_params.secondOp == params[:result]))
+        @valid = true
+    else
+      render :new
     end
 
-    respond_to do |format|
-      if @operation.save
-        format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
-        format.json { render :show, status: :created, location: @operation }
-      else
-        format.html { render :new }
-        format.json { render json: @operation.errors, status: :unprocessable_entity }
-      end
+    if (valid)
+      @operation.endTime = Time.new
+      @operation.save
+      format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
+      format.json { render :show, status: :created, location: @operation }
     end
+  end
+
+
+  # GET /operations/1/edit
+  def edit
   end
 
   # PATCH/PUT /operations/1

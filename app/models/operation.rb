@@ -2,6 +2,7 @@ class Operation
   include Mongoid::Document
   field :firstOp, type: String
   field :secondOp, type: Integer
-  field :responseTime, type: Numeric
+  field :initTime, type: Time
+  field :endTime, type: Time
   field :type, type: String
 end

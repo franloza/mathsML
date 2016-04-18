@@ -1,23 +1,9 @@
-<%= form_for(@operation) do |f| %>
-  <% if @operation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@operation.errors.count, "error") %> prohibited this operation from being saved:</h2>
-
-      <ul>
-      <% @operation.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_tag :action=>:answer do %>
   <div class="field">
-    <%= @operation.firstOp %> + <%= @operation.secondOp%>  =
-    <%= text_field_tag(:result) %>
+    <%= @operation.firstOp %> <%= @operation.type %> <%= @operation.secondOp%>  = <%= text_field_tag(:result) %>
   </div>
   <div class="actions">
       <%= submit_tag "Enviar" %>
   </div>
 
-
-<% end %>
+  <% end %>
