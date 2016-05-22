@@ -1,3 +1,6 @@
+require "http"
+require 'uri'
+
 class OperationsController < ApplicationController
   before_action :set_operation, only: [:show, :edit, :update, :destroy]
 
@@ -27,6 +30,12 @@ class OperationsController < ApplicationController
     @operation.type = ['+','-','*','/'].sample
     @operation.initTime = Time.new
     @operation.save
+    url = "http://localhost:5000/predict/?"
+    params = URI.encode_www_form([["op1",@operation.firstOp.to_i],
+      ["op2",@operation.secondOp.to_i],["opType",@operation.type]])
+    url << params
+    print url
+    @estimatedTime = HTTP.get(url).to_s.gsub(/[\[\]]/, '')
   end
 
   # POST /operations

@@ -2,6 +2,11 @@
   <div class="field">
     <%= @operation.firstOp %> <%= @operation.type %> <%= @operation.secondOp%>  = <%= text_field_tag 'result' %>
   </div>
+  <p id="estimatedTime">
+    Estimated time: <%= @estimatedTime %>
+  </p>
+
+
   <%= f.hidden_field :id, :value => @operation.id %>
   <div class="actions">
       <%= f.submit "Enviar" %>

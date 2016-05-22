@@ -14,3 +14,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+#Ignore models folder
+/training/models/*
+
+#Ignore python cache folder
+*/__pycache__
